@@ -1,0 +1,19 @@
+/*
+ * A sample program that will double
+ * any value passed in
+ */
+function double(int x)
+{
+	return 2 * x;
+}
+
+int main()
+{
+	int input = read;
+	if (read < 1)
+		then return 0;
+	else 
+		print "your input was doubled";
+		print double(input);
+	fi
+}

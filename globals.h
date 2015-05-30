@@ -1,0 +1,38 @@
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
+#ifndef TRUE
+#define TRUE 1
+#endif
+
+#ifndef FALSE
+#define FALSE 0
+#endif
+
+#define MAXRESERVED 14
+
+extern FILE *source;
+extern FILE *listing;
+
+typedef enum {
+	/* MULTI-CHARACTER TOKENS */
+	ID, NUM,
+
+	/* RESERVED WORDS */
+	ELSE, END,   ESLE, FI,     FUNCTION, IF,
+	INT,  PRINT, READ, REPEAT, RETURN,   SHORT, TEAPER, THEN,
+
+	/* OPERATION SYMBOLS */
+	LEFTPAREN, RIGHTPAREN, MULTIPLY, SUBTRACT, ADD, DIVIDE, MOD, ASSIGN,
+
+	/* LANGUAGE SYMBOLS */
+	SEMICOLON, RIGHTCRLYBRCE, LEFTCRLYBRCE,
+
+	/* LOGICAL SYMBOLS AND BIT OPERATIONS */
+	AND, OR, XOR, NOT,
+
+	/* EXTRA TOKENS*/
+	ENDFILE, ERROR
+} TOKENTYPE;
+
+#endif /* globals.h */
