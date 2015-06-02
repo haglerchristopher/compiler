@@ -42,11 +42,16 @@ struct token {
 static TOKENTYPE keyword_search(char *string)
 {
 	for(int i = 0; i < MAXRESERVED; i++) {
-		if (!strcmp(reservedWords[i].str, string)) {
+		if (!strcmp(reservedWords[i].str, string))
 				return reservedWords[i].token;
-		}
     }
 	return ID;
+}
+
+static void unget_next_char()
+{
+	if (!EOF_FLAG) 
+		(linepos--);
 }
 
 static int get_next_char()
@@ -66,28 +71,21 @@ static int get_next_char()
 	}
 }
 
-static void unget_next_char()
-{
- 	if (!EOF_FLAG)
-        	linepos--;
-}
-
 static int islanguagesymbol(int ch, TOKENTYPE *current_token)
 {
 	int result = TRUE;
-	if (ch == ';') {
+	if (ch == ';')
 		*current_token = SEMICOLON;
-	} else if (ch == '{') {
+	else if (ch == '{')
 		*current_token = RIGHTCRLYBRCE;
-	} else if (ch == '}') {
+	else if (ch == '}')
 		*current_token = LEFTCRLYBRCE;
-	} else if (ch == '\"') {
+	else if (ch == '\"')
 		*current_token = QUOTE;
-	} else if (ch == '(') {
+	else if (ch == '(')
 		*current_token = LEFTPAREN;
-	}else if (ch == ')') {
+	else if (ch == ')')
 		*current_token = RIGHTPAREN;
-	}
 	else
 		result = FALSE;
 	return result;
@@ -97,19 +95,18 @@ static int islanguagesymbol(int ch, TOKENTYPE *current_token)
 static int isoperation(int ch, TOKENTYPE *current_token)
 {
 	int result = TRUE;
-	if (ch == '*') {
+	if (ch == '*')
 		*current_token = MULTIPLY;
-	} else if (ch == '/') {
+	else if (ch == '/')
 		*current_token = DIVIDE;
-	} else if (ch == '+') {
+	else if (ch == '+')
 		*current_token = ADD;
-	} else if (ch == '-') {
+	else if (ch == '-')
 		*current_token = SUBTRACT;
-	} else if (ch == '%'){
+	else if (ch == '%')
 		*current_token = MOD;
-	} else if (ch == '=') {
+	else if (ch == '=')
 		*current_token = ASSIGN;
-	}
 	else
 		result = FALSE;
 	return result;
@@ -118,15 +115,14 @@ static int isoperation(int ch, TOKENTYPE *current_token)
 static int islogicaloperation(int ch, TOKENTYPE *current_token)
 {
 	int result = TRUE;
-	if (ch == '~') {
+	if (ch == '~')
 		*current_token = XOR;
-	} else if(ch == '&') {
+	else if(ch == '&')
 		*current_token = AND;
-	} else if(ch == '|') {
+	else if(ch == '|')
 		*current_token = OR;
-	} else if(ch == '!') {
+	else if(ch == '!')
 		*current_token = NOT;
-	}
 	else
 		result = FALSE;
 	return result;
@@ -194,10 +190,10 @@ TOKENTYPE get_token()
 					state = COMMENT;
 					save = FALSE;
 				}
-				else { //EOF or ERROR
+				else {
 					state = END;
 					save = FALSE;
-					unget_next_char(); //prevent skipping over error token
+					unget_next_char();
 				}
 				break;
 
@@ -234,6 +230,7 @@ TOKENTYPE get_token()
 						state = DONE;
 						*current_token = ENDFILE;
 						break;
+						
 					default:
 						save = FALSE;
 						state = DONE;
